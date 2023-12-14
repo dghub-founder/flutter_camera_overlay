@@ -18,7 +18,9 @@ class CameraOverlay extends StatefulWidget {
     this.info,
     this.loadingWidget,
     this.infoMargin,
+    this.enabled = true,
   }) : super(key: key);
+  final enabled;
   final CameraDescription camera;
   final OverlayModel model;
   final bool flash;
@@ -80,13 +82,15 @@ class _FlutterCameraOverlayState extends State<CameraOverlay> {
       fit: StackFit.expand,
       children: [
         CameraPreview(controller),
+        if(widget.enabled)
         OverlayShape(widget.model),
         if (widget.label != null || widget.info != null)
-          Align(
+           if(widget.enabled)
+        Align(
             alignment: Alignment.topCenter,
             child: Container(
                 margin: widget.infoMargin ??
-                    const EdgeInsets.only(top: 100, left: 20, right: 20),
+                    const EdgeInsets.only(top: 70, left: 20, right: 20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
